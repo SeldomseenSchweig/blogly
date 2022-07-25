@@ -59,7 +59,6 @@ def edit_user_page(user_id):
 @app.route('/user/<int:user_id>/edit', methods= ["POST"])
 def edit_user(user_id):
     user = User.query.get_or_404(user_id)
-    print(user.first_name)
     user.first_name = request.form['firstname']
     user.last_name = request.form['lastname']
     user.image_url = request.form['image']

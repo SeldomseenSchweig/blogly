@@ -17,11 +17,9 @@ class User(db.Model):
                    primary_key = True,
                    autoincrement=True)
     first_name = db.Column(db.String(100),
-                    nullable= False,
-                    unique=True)
+                    nullable= False)
     last_name = db.Column(db.String(100),
-                    nullable= False,
-                    unique=True)
+                    nullable= False)
     image_url= db.Column(db.String(100),
                     nullable=True)
                     
