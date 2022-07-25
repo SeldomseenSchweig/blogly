@@ -4,7 +4,7 @@
 
 
 {% block main %}
-<form action="/" method="POST" >
+<form action="/users/{{user.id}}/edit}" method="POST" >
     <label for="firstname">Old First Name :{{user.first_name}}  - Change to</label>
     <input type="text" name = "firstname" placeholder="first name">
     <br>

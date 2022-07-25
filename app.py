@@ -51,7 +51,7 @@ def show_details(new_user_id):
 
 
 
-@app.route('/users/<int:user_id>/edit')
+@app.route('/user/<int:user_id>/edit')
 def edit_user_page(user_id):
     user = User.query.get_or_404(user_id)
     return render_template('edit_user.html', user=user)
