@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block headline %} Updating User: {{user.first_name}} {{user.last_name}} {% endblock %}
+
+
+{% block main %}
+<form action="/" method="POST" >
+    <label for="firstname">Old First Name :{{user.first_name}}  - Change to</label>
+    <input type="text" name = "firstname" placeholder="first name">
+    <br>
+    <br>
+    <label for="lastname"> Old Last Name : {{user.last_name}} - Change to</label>
+    <input type="text" name = "lastname" placeholder="last name">
+    <br>
+    <br>
+    <label for="image_url">Image URL</label>
+    <input type="text" name = "image" placeholder="image url">
+    <br>
+    <br>
+    <button> Update User</button>
+</form>
+
+{% endblock %}
+
