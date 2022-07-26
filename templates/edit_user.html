@@ -4,21 +4,23 @@
 
 
 {% block main %}
-<form action="/users/{{user.id}}/edit}" method="POST" >
-    <label for="firstname">Old First Name :{{user.first_name}}  - Change to</label>
-    <input type="text" name = "firstname" placeholder="first name">
+<form action="/user/{{user.id}}/edit" method="POST" >
+    <label for="firstname"></label>
+    <input type="text" name = "firstname" placeholder="{{user.first_name}}">
     <br>
     <br>
-    <label for="lastname"> Old Last Name : {{user.last_name}} - Change to</label>
-    <input type="text" name = "lastname" placeholder="last name">
+    <label for="lastname"></label>
+    <input type="text" name = "lastname" placeholder="{{user.last_name}}">
     <br>
     <br>
-    <label for="image_url">Image URL</label>
-    <input type="text" name = "image" placeholder="image url">
+    <label for="image_url"></label>
+    <input type="text" name = "image" placeholder="{{user.image_url}}">
     <br>
     <br>
+
     <button> Update User</button>
 </form>
+<a href="/{{user.id}}"><button> Cancel</button></a>
 
 {% endblock %}
 

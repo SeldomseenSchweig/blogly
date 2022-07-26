@@ -11,7 +11,8 @@
              <h2>{{user.first_name}}  {{user.last_name}}</h2>
         </div>
             
-        <button>Delete</button>  <a href="/users/{{user.id}}/edit"><button>Update User</button></a>
+        <form action="/user/{{user.id}}/delete" method="post"><button type="submit">Delete</button></form>  
+        <a href="/user/{{user.id}}/edit"><button>Update User</button></a>
     {% endblock %}
 
 
