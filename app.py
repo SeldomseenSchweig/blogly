@@ -54,7 +54,8 @@ def add_user():
 def show_details(new_user_id):   
     """Show details about a single user"""
     user = User.query.get_or_404(new_user_id)
-    return render_template('details.html', user=user)
+    posts = user.posts
+    return render_template('details.html', user=user, posts=posts)
 
 
 
