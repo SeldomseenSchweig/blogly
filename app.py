@@ -3,8 +3,9 @@
 
 from crypt import methods
 from flask import Flask, request, redirect, render_template, flash
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from utilities import is_empty, make_user
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -88,11 +89,42 @@ def delete_user(user_id):
     return redirect('/users')
 
 
+
+@app.route('/users/[user-id]/posts/new')
+def add_post():
+    """Show form to add a post for that user."""
+
+
+
+@app.route('/users/[user-id]/posts/new', methods=["POST"])
+def handle_add_form():
+    """ Handle add form; add post and redirect to the user detail page."""
+
+
+
+@app.route('/posts/[post-id]')
+def show_post():
+
+    """Show a post and Show buttons to edit and delete the post."""
+
+
+
+@app.route('/posts/[post-id]/edit')
+def show_edit_form():
+    """Show form to edit a post, and to cancel (back to user page)."""
+
+
+
+@app.route('/posts/[post-id]/edit', methods=["POST"])
+def edit_post():
+     """Handle editing of a post. Redirect back to the post view."""
+
+
+
+
+@app.route('/posts/[post-id]/delete', methods=["POST"])
+def delete_post():
+    """Delete the post."""
+
+
     
-
-# Have a cancel button that returns to the detail page for a user, and a save button that updates the user.
-
-# POST /users/[user-id]/edit
-# Process the edit form, returning the user to the /users page.
-# POST /users/[user-id]/delete
-# Delete the user
