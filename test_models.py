@@ -4,7 +4,7 @@ from app import app
 from models import db, User, Post
 
 # Use test database and don't clutter tests with SQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///user_test_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///users_test_db'
 app.config['SQLALCHEMY_ECHO'] = False
 
 
@@ -15,7 +15,7 @@ class UerModelTestCase(TestCase):
 
     def setUp(self):
         """Clean up any existing users."""
-        
+
         db.drop_all()
         db.create_all()
 
@@ -57,11 +57,12 @@ class UerModelTestCase(TestCase):
        
 
     def test_post_database(self):
-        # user1 = User(first_name="Test", last_name="testerino", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg' )
-        # user2 = User(first_name="John", last_name="jacob jingelheimerschmidht", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg')
-        # db.session.add(user1)
-        # db.session.add(user2)
-        # db.session.commit()
+        """Tests that a user is associated with an id, that a post goes into the database"""
+        user1 = User(first_name="Test", last_name="testerino", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg' )
+        user2 = User(first_name="John", last_name="jacob jingelheimerschmidht", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg')
+        db.session.add(user1)
+        db.session.add(user2)
+        db.session.commit()
         user1 = User.query.get(1)
         post1 = Post(title="bleh", content="my first blag post", user_id=user1.id)
         db.session.add(post1)
