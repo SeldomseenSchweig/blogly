@@ -2,9 +2,10 @@
 
 
 from crypt import methods
+from pdb import post_mortem
 from flask import Flask, request, redirect, render_template, flash
 from models import db, connect_db, User, Post
-from utilities import is_empty, make_user
+from utilities import is_empty, make_user, make_post
 from datetime import datetime
 
 
@@ -57,9 +58,6 @@ def show_details(new_user_id):
     posts = user.posts
     return render_template('details.html', user=user, posts=posts)
 
-
-
-
 @app.route('/user/<int:user_id>/edit')
 def edit_user_page(user_id):
     """renders edit page"""
@@ -90,35 +88,55 @@ def delete_user(user_id):
     return redirect('/users')
 
 
+@app.route('/posts/<int:post_id>')
+def show_post(post_id):
+    """Show a post and Show buttons to edit and delete the post."""
+    post =Post.query.get(post_id)
 
-@app.route('/users/[user-id]/posts/new')
-def add_post():
+    return render_template('blog_post.html', post=post)
+
+
+
+@app.route('/users/<user_id>/posts/new')
+def add_post(user_id):
     """Show form to add a post for that user."""
 
+    return render_template('new_blog_post.html', user=user_id)
 
 
-@app.route('/users/[user-id]/posts/new', methods=["POST"])
-def handle_add_form():
+@app.route('/users/<user_id>/posts/new', methods=["POST"])
+def handle_add_form(user_id):
     """ Handle add form; add post and redirect to the user detail page."""
 
+    title = request.form['title']
+    content = request.form['content'] 
+    if is_empty([title, content]):
+        return redirect(f"/users/{user_id}/posts/new")
+    
+    make_post(title, content, user_id)
+    return redirect(f"/{user_id}")
 
 
-@app.route('/posts/[post-id]')
-def show_post():
-
-    """Show a post and Show buttons to edit and delete the post."""
-
-
-
-@app.route('/posts/[post-id]/edit')
-def show_edit_form():
+@app.route('/posts/<post_id>/edit')
+def show_edit_form(post_id):
     """Show form to edit a post, and to cancel (back to user page)."""
+    post =Post.query.get(post_id)
+    return render_template("edit_post.html", post=post)
 
 
-
-@app.route('/posts/[post-id]/edit', methods=["POST"])
-def edit_post():
-     """Handle editing of a post. Redirect back to the post view."""
+@app.route('/posts/<post_id>/edit', methods=["POST"])
+def edit_post(post_id):
+    """Handle editing of a post. Redirect back to the post view."""
+    post = Post.query.get(post_id)
+    title = request.form['title']
+    content = request.form['content'] 
+    if is_empty([title, content]):
+        return redirect(f"/posts/{post_id}/edit>")
+        
+    post.title = title
+    post.content = content
+    db.session.commit()
+    return redirect(f"/posts/{post_id}")
 
 
 

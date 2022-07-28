@@ -2,10 +2,10 @@
 
 
 <title >{% block title %} {{user.name}} {% endblock %}</title>
-<body>
 
   
     {% block main %}
+
         <div>
             <img src="{{user.image_url}}" alt="User Image">
              <h2>{{user.first_name}}  {{user.last_name}}</h2>
@@ -18,9 +18,12 @@
     {% block blogs %}
     <ul>
         {% for post in posts %}
-        <li> {{post.title}}</li>
+        <a href="/posts/{{post.id}}"><li> {{post.title}}</li></a>
         {% endfor %}
     </ul>
+    <a href="/users/{{user.id}}/posts/new">
+        <button type="button" class="btn btn-primary">Add New Blog Post</button>
+    </a>
 
     {% endblock %}
 
