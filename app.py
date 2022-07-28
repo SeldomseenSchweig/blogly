@@ -94,8 +94,9 @@ def delete_user(user_id):
 def show_post(post_id):
     """Show a post and Show buttons to edit and delete the post."""
     post =Post.query.get(post_id)
+    user_id = post.user_id
 
-    return render_template('blog_post.html', post=post)
+    return render_template('blog_post.html', post=post, user_id=user_id)
 
 
 
@@ -114,7 +115,6 @@ def handle_add_form(user_id):
     content = request.form['content'] 
     if is_empty([title, content]):
         return redirect(f"/users/{user_id}/posts/new")
-    
     make_post(title, content, user_id)
     return redirect(f"/{user_id}")
 

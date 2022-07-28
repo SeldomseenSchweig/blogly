@@ -2,16 +2,16 @@
 {% block title %} {{post.title}} {% endblock %}
 {% block headline %} {{post.title}} {% endblock %}
 {% block main %} 
-<div>{{post.content}} </div>
+<div>{{post.content}}</div>
 
-<form action="/posts/{{post.id}}/delete" method="post">
-    <button type="submit">Delete Blog Post</button>
+<form>
+    <button type="submit" formaction="/posts/{{post.id}}/delete" formmethod="POST">Delete Blog Post</button>
+    
+        <button formaction="/posts/{{post.id}}/edit" formmethod="GET">Edit Blog</button>
+    <button formaction="/{{post.user_id}}" formmethod="GET">Cancel</button>
 </form>  
 
 
-<a href="/posts/{{post.id}}/edit">
-    <button>Edit Blog</button>
-</a>
 
 
 
