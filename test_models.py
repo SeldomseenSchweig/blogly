@@ -55,8 +55,8 @@ class UerModelTestCase(TestCase):
        
 
     def test_post_database(self):
-        user2 = User(first_name="Test", last_name="testerino", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg' )
-        user1 = User(first_name="John", last_name="jacob jingelheimerschmidht", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg')
+        user1 = User(first_name="Test", last_name="testerino", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg' )
+        user2 = User(first_name="John", last_name="jacob jingelheimerschmidht", image_url='https://cdn.pixabay.com/photo/2022/03/16/01/23/bird-7071408__340.jpg')
         db.session.add(user1)
         db.session.add(user2)
         db.session.commit()
@@ -65,12 +65,12 @@ class UerModelTestCase(TestCase):
         db.session.add(post1)
         db.session.commit()
         # user2 = User.query.get(2)
-        post2 = Post(title="bleh", content="my second blag post", id =2)
+        post2 = Post(title="bleh", content="my second blag post", id=2)
         db.session.add(post2)
         db.session.commit()
         first_post = Post.query.get(1)
         second_post = Post.query.get(2)
 
-        self.assertEqual(first_post.content,'my first blag post')
+        self.assertEqual(first_post.id, 1)
         self.assertEqual(second_post.title,"bleh")
 
