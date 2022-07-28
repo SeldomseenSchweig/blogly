@@ -7,8 +7,7 @@ from models import db, User, Post
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///user_test_db'
 app.config['SQLALCHEMY_ECHO'] = False
 
-db.drop_all()
-db.create_all()
+
 
 
 class UerModelTestCase(TestCase):
@@ -16,6 +15,9 @@ class UerModelTestCase(TestCase):
 
     def setUp(self):
         """Clean up any existing users."""
+        
+        db.drop_all()
+        db.create_all()
 
         User.query.delete()
         Post.query.delete()
@@ -71,6 +73,6 @@ class UerModelTestCase(TestCase):
         first_post = Post.query.get(1)
         second_post = Post.query.get(2)
 
-        self.assertEqual(first_post.user_id, 1)
+        self.assertEqual(first_post.user_id, user1.id)
         self.assertEqual(second_post.title,"bleh")
 
