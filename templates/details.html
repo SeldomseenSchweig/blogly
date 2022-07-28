@@ -10,9 +10,16 @@
             <img src="{{user.image_url}}" alt="User Image">
              <h2>{{user.first_name}}  {{user.last_name}}</h2>
         </div>
-            
-        <form action="/user/{{user.id}}/delete" method="post"><button type="submit">Delete</button></form>  
-        <a href="/user/{{user.id}}/edit"><button>Update User</button></a>
+            <div>
+                <form action="/user/{{user.id}}/delete" method="post">
+                    <button type="submit">Delete</button> 
+                    <!-- <button formaction="/user/{{user.id}}/edit">Update User</button> -->
+                </form>  
+                    <a href="/user/{{user.id}}/edit"><button>Update User</button></a>
+
+            </div>
+
+    
     {% endblock %}
 
     {% block blogs %}

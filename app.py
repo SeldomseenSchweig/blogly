@@ -83,6 +83,8 @@ def edit_user(user_id):
 @app.route('/user/<int:user_id>/delete', methods=["POST"])
 def delete_user(user_id):
     """deletes user """
+    
+    # Post.query.filter_by(user_id = user_id).delete()
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
     return redirect('/users')
@@ -132,7 +134,6 @@ def edit_post(post_id):
     content = request.form['content'] 
     if is_empty([title, content]):
         return redirect(f"/posts/{post_id}/edit>")
-        
     post.title = title
     post.content = content
     db.session.commit()
@@ -141,9 +142,15 @@ def edit_post(post_id):
 
 
 
-@app.route('/posts/[post-id]/delete', methods=["POST"])
-def delete_post():
+@app.route('/posts/<post_id>/delete', methods=["POST"])
+def delete_post(post_id):
     """Delete the post."""
+    post = Post.query.get(post_id)
+    user_id= post.user_id
+    Post.query.filter_by(id=post_id).delete()
+    db.session.commit()
+    return redirect(f'/{user_id}')
+
 
 
     
