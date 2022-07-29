@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Tags Details {% endblock %}
+
+{% block headline %} <h1> Blogs that use this tag:</h1> {% endblock %}
+
+{% block main %}
+<ul>
+    {% for post in tagged_posts %}
+        <a href="/{{post.id}}"> <li>{{post.title}}</li></a>
+    {% endfor %}
+</ul>
+<br>
+{% endblock %}

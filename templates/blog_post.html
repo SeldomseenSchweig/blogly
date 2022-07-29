@@ -5,7 +5,7 @@
 <div>{{post.content}}</div>
 
 <form>
-    <button type="submit" formaction="/posts/{{post.id}}/delete" formmethod="POST">Delete Blog Post</button>
+    <button type="submit button" formaction="/posts/{{post.id}}/delete" formmethod="POST" class="btn btn-danger" >Delete Blog Post</button>
     
         <button formaction="/posts/{{post.id}}/edit" formmethod="GET">Edit Blog</button>
     <button formaction="/{{post.user_id}}" formmethod="GET">Cancel</button>

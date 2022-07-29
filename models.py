@@ -36,6 +36,17 @@ class Post(db.Model):
     date_time = db.Column(db.DateTime(), nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, 
                 db.ForeignKey('users.id'))
-    
+    tags = db.relationship('Tag', backref = 'posts', secondary='post_tags', cascade="all, delete")
+
+class Tag(db.Model):
+  __tablename__='tags' 
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+  name = db.Column(db.Text, unique=True)
+  
+  
+class PostTag(db.Model):
+  __tablename__='post_tags'
+  post_id = db.Column(db.Integer, db.ForeignKey('posts.id'),primary_key = True)
+  tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), primary_key=True)
 
                     

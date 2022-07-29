@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Add a New Tag Option {% endblock %}
+
+
+{% block headline %} <h1>Fill in the Form to Add a New Tag{{user}}</h1> {% endblock %}
+
+
+{% block main %}
+<form  >
+    <label for="name"> Name</label>
+    <input type="text" name = "name" placeholder="Tag Name" >
+    <br>
+    <br>
+    <button formaction="/tags/new" formmethod="post">Submit</button>
+
+    <button formaction="/tags" formmethod="get">Cancel</button>
+  
+
+</form>
+
+{% endblock %}

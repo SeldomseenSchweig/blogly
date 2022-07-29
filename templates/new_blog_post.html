@@ -7,7 +7,7 @@
 
 
 {% block main %}
-<form action="/users/{{user}}/posts/new" method="POST" >
+<form  >
     <label for="title"> Title</label>
     <input type="text" name = "title" placeholder="Blog Post Title" >
     <br>
@@ -16,10 +16,12 @@
     <input type="text" name = "content" placeholder="Put you blog here">
     <br>
     <br>
-    <button>Add Blog Post</button>
+    <button formaction="/users/{{user}}/posts/new" formmethod="post">Add Blog Post</button>
+
+    <button formaction="/{{user}}" formmethod="get">Cancel</button>
+    <button  formaction="/tags" formmethod="get">Tags</button>
+
 </form>
-<a href="/{{user}}">
-    <button>Cancel</button>
-</a>
+
 {% endblock %}
 

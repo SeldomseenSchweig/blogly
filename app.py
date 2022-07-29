@@ -4,7 +4,7 @@
 from crypt import methods
 from pdb import post_mortem
 from flask import Flask, request, redirect, render_template, flash
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from utilities import is_empty, make_user, make_post
 from datetime import datetime
 
@@ -153,4 +153,49 @@ def delete_post(post_id):
 
 
 
-    
+
+@app.route('/tags')
+def list_of_tags():
+    """ Lists all tags, with links to the tag detail page. """
+    tags = Tag.query.all()
+    return render_template('tags.html', tags=tags)
+
+
+# GET /tags/[tag-id]
+@app.route('/tags/<tag_id>')
+def show_tag_details(tag_id):   
+    """Show detail about a tag. Have links to edit tag and to delete."""
+    tag = Tag.query.get(tag_id)
+    tagged_posts = tag.posts
+
+    return render_template('tag_details.html', tagged_posts=tagged_posts)
+
+
+
+# GET /tags/new
+@app.route('/tags/new')
+def show_tag_form():   
+    """# Shows a form to add a new tag.."""
+
+    return render_template('new_tag_form.html')
+
+
+
+# POST /tags/new
+
+@app.route('/tags/new', methods=["POST"])
+def add_new_tag():   
+    """Process add form, adds tag, and redirect to tag list."""
+    tag_name = request.form['name']
+    new_tag = Tag(name = tag_name)
+    db.session.add(new_tag)
+    db.session.commit()
+    return redirect('/tags')
+
+#
+# GET /tags/[tag-id]/edit
+# Show edit form for a tag.
+# POST /tags/[tag-id]/edit
+# Process edit form, edit tag, and redirects to the tags list.
+# POST /tags/[tag-id]/delete
+# Delete a tag.
