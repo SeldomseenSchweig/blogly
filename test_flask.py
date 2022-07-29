@@ -109,7 +109,6 @@ class UserViewsTestCase(TestCase):
             d = {"title": "test title", "content": "edited test content", "user_id":self.User_id}
             resp = client.post(f"/posts/{self.Post_id}/edit", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
-
             self.assertEqual(resp.status_code, 200)
             self.assertIn("<div>edited test content</div>", html)
   
