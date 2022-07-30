@@ -1,6 +1,8 @@
 """Blogly application."""
 
 
+from array import array
+from ast import For
 from crypt import methods
 from pdb import post_mortem
 from flask import Flask, request, redirect, render_template, flash
@@ -93,9 +95,15 @@ def delete_user(user_id):
 def show_post(post_id):
     """Show a post and Show buttons to edit and delete the post."""
     # post =Post.query.get(post_id) - need to show tags for the chosen post
+    tags = []
     post =Post.query.get(post_id)
-  
-    return render_template('blog_post.html', post=post)
+    post_tags = PostTag.query.filter_by(post_id= post_id).all()
+
+    for tag in post_tags:
+        tags.append(Tag.query.filter_by(id = tag.tag_id).first())
+
+ 
+    return render_template('blog_post.html', post=post, tags=tags)
 
 
 
@@ -103,6 +111,7 @@ def show_post(post_id):
 def add_post(user_id):
     """Show form to add a post for that user."""
     tags = Tag.query.all()
+    
     return render_template('new_blog_post.html', user=user_id, tags=tags)
 
 
@@ -111,10 +120,17 @@ def handle_add_form(user_id):
     """ Handle add form; add post and redirect to the user detail page."""
 
     title = request.form['title']
-    content = request.form['content'] 
+    content = request.form['content']
+    tags = request.form.getlist('checkbox')
     if is_empty([title, content]):
         return redirect(f"/users/{user_id}/posts/new")
-    make_post(title, content, user_id)
+    id = make_post(title, content, user_id)
+    for tag in tags:
+        tag = Tag.query.filter_by(name = tag).first()
+        post_tag = PostTag(post_id = id, tag_id=tag.id)
+        db.session.add(post_tag)
+        print(f"********post_id :{post_tag.post_id}, tag_id: {post_tag.tag_id}************")
+        db.session.commit()
     return redirect(f"/{user_id}")
 
 

@@ -24,3 +24,4 @@ def make_post(title, content, user_id):
     new_post = Post(title=title, content=content, user_id=user_id)
     db.session.add(new_post)
     db.session.commit()
+    return new_post.id

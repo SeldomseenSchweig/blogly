@@ -9,7 +9,9 @@
     
         <button formaction="/posts/{{post.id}}/edit" formmethod="GET">Edit Blog</button>
     <button formaction="/{{post.user_id}}" formmethod="GET">Cancel</button>
-</form>  
+</form> 
+
+<h5>Tags: {% for tag in tags %}<a href="/tags/{{tag.id}}"><button>{{tag.name}}</button></a>{% endfor %}</h3> 
 
 
 

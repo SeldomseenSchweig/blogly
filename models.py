@@ -36,12 +36,13 @@ class Post(db.Model):
     date_time = db.Column(db.DateTime(), nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, 
                 db.ForeignKey('users.id'))
-    tags = db.relationship('Tag', backref = 'posts', secondary='post_tags', cascade="all, delete")
+    tags = db.relationship('Tag', backref = 'posts', secondary='post_tags')
 
 class Tag(db.Model):
   __tablename__='tags' 
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.Text, unique=True)
+  post_tag = db.relationship('PostTag', backref = 'post_tags', single_parent=True)
   
   
 class PostTag(db.Model):
