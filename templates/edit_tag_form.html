@@ -12,7 +12,7 @@
     <input type="text" name = "name" placeholder="{{tag.name}}" value="{{tag.name}}">
     <br>
     <br>
-    <button formaction="/tags/new" formmethod="post">Submit</button>
+    <button formaction="/tags/{{tag.id}}/edit" formmethod="post">Submit</button>
     <button formaction="/tags" formmethod="get">Cancel</button>
 
 </form>
