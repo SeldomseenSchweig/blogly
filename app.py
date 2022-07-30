@@ -84,7 +84,6 @@ def edit_user(user_id):
 def delete_user(user_id):
     """deletes user """
     
-    # Post.query.filter_by(user_id = user_id).delete()
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
     return redirect('/users')
@@ -93,9 +92,9 @@ def delete_user(user_id):
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     """Show a post and Show buttons to edit and delete the post."""
+    # post =Post.query.get(post_id) - need to show tags for the chosen post
     post =Post.query.get(post_id)
   
-
     return render_template('blog_post.html', post=post)
 
 
@@ -103,8 +102,8 @@ def show_post(post_id):
 @app.route('/users/<user_id>/posts/new')
 def add_post(user_id):
     """Show form to add a post for that user."""
-
-    return render_template('new_blog_post.html', user=user_id)
+    tags = Tag.query.all()
+    return render_template('new_blog_post.html', user=user_id, tags=tags)
 
 
 @app.route('/users/<user_id>/posts/new', methods=["POST"])
@@ -168,16 +167,17 @@ def show_tag_details(tag_id):
     tag = Tag.query.get(tag_id)
     tagged_posts = tag.posts
 
-    return render_template('tag_details.html', tagged_posts=tagged_posts)
+    return render_template('tag_details.html', tagged_posts=tagged_posts, tag=tag)
 
 
 
 # GET /tags/new
 @app.route('/tags/new')
 def show_tag_form():   
-    """# Shows a form to add a new tag.."""
+    """# Shows a form to add a new tag."""
+    tags = Tag.query.all()
 
-    return render_template('new_tag_form.html')
+    return render_template('new_tag_form.html',tags=tags)
 
 
 
@@ -194,8 +194,35 @@ def add_new_tag():
 
 #
 # GET /tags/[tag-id]/edit
+@app.route('/tags/<tag_id>/edit', methods=["POST"])
+def edit_tag(tag_id):
+    """Handle editing of a tag. Redirect back to the tag view."""
+    tag = Tag.query.get(tag_id)
+    name = request.form['name']
+    if is_empty([name]):
+        return redirect(f"/tags/{tag_id}/edit>")
+    tag.name = name
+    tag.id = tag_id
+    db.session.add(tag)
+    db.session.commit()
+    return redirect(f"/tags/{tag_id}")
+
+
 # Show edit form for a tag.
+@app.route('/tags/<tag_id>/edit')
+def edit_tag_form(tag_id):
+    tags = Tag.query.all()
+    tag = Tag.query.get(tag_id)
+    return render_template('edit_tag_form.html',tag=tag, tags=tags)
 # POST /tags/[tag-id]/edit
 # Process edit form, edit tag, and redirects to the tags list.
 # POST /tags/[tag-id]/delete
 # Delete a tag.
+
+@app.route('/tags/<tag_id>/delete', methods=["POST"])
+def delete_tag(tag_id):
+    """deletes tag """
+    
+    User.query.filter_by(id=tag_id).delete()
+    db.session.commit()
+    return redirect('/tags')

@@ -2,13 +2,15 @@
 
 {% block title %}Tags Details {% endblock %}
 
-{% block headline %} <h1> Blogs that use this tag:</h1> {% endblock %}
+{% block headline %} <h1> Blogs that use the tag <a style="color:blue ;">{{tag.name}}:</a></h1> {% endblock %}
 
 {% block main %}
+
 <ul>
     {% for post in tagged_posts %}
         <a href="/{{post.id}}"> <li>{{post.title}}</li></a>
     {% endfor %}
 </ul>
+<a href="/tags"><button> Cancel</button></a>
 <br>
 {% endblock %}

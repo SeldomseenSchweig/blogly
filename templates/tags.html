@@ -7,13 +7,18 @@
 {% block main %}
 <ul>
     {% for tag in tags %}
-       <a href="/tags/{{tag.id}}"><li>{{tag.name}}</li></a>
+    <li>
+       <a href="/tags/{{tag.id}}">{{tag.name}}</a>
         <form>
-            <button formaction="/tag/{{tag.id}}/delete" formmethod="post" class="btn btn-danger">Delete Tag</button> 
-            <button formaction="/tag/{{tag.id}}/edit" formmethod="get">Edit Tag</button>
+            <button formaction="/tags/{{tag.id}}/delete" formmethod="post" class="btn btn-danger btn-sm">Delete Tag</button> 
+            <button formaction="/tags/{{tag.id}}/edit" formmethod="get" class="btn-sm">Edit Tag</button>
         </form>  
+    </li>
     {% endfor %}
 </ul>
 <br>
-<a href="/tags/new"><button type="button" class="btn btn-primary" >Add Tag</button></a>
+<form action="">
+    <a href="/tags/new"><button type="button" class="btn btn-primary">Add Tag</button></a>
+</form>
+
 {% endblock %}

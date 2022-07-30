@@ -3,7 +3,7 @@
 {% block title %} Write a New Blog Post {% endblock %}
 
 
-{% block headline %} <h1>Fill in the Form to Add a New Blog Post {{user}}</h1> {% endblock %}
+{% block headline %} <h1>Add a New Blog Post</h1> {% endblock %}
 
 
 {% block main %}
@@ -12,14 +12,21 @@
     <input type="text" name = "title" placeholder="Blog Post Title" >
     <br>
     <br>
-    <label for="content" class ="submissionfield"> Content</label>
-    <input type="text" name = "content" placeholder="Put you blog here">
+    <label for="content" class ="submissionfield" > Content</label>
+    <input type="text" name = "content" placeholder="Put Your Blog Here" style="width: 50%; height: 100px; border: 1px solid #999999; padding: 5px">
     <br>
     <br>
+    <h2>Tags</h2>
+    {% for tag in tags %}
+    <label class="container" style="display: block;">
+        <input type="checkbox" name="{{tag.name}}">  {{tag.name}}
+        <span class="checkmark"></span>
+      </label>
+      {% endfor %}
+      <br>
     <button formaction="/users/{{user}}/posts/new" formmethod="post">Add Blog Post</button>
-
     <button formaction="/{{user}}" formmethod="get">Cancel</button>
-    <button  formaction="/tags" formmethod="get">Tags</button>
+    <button  formaction="/tags" formmethod="get">Create a Tag</button>
 
 </form>
 

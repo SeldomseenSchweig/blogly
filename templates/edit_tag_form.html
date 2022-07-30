@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %} Add a New Tag Option {% endblock %}
+{% block title %} Edit Tag {% endblock %}
 
 
-{% block headline %} <h1>Fill in the Form to Add a New Tag</h1> {% endblock %}
+{% block headline %} <h1>Edit Tag</h1> {% endblock %}
 
 
 {% block main %}
 <form  >
     <label for="name"> Name</label>
-    <input type="text" name = "name" placeholder="Tag Name" >
+    <input type="text" name = "name" placeholder="{{tag.name}}" value="{{tag.name}}">
     <br>
     <br>
     <button formaction="/tags/new" formmethod="post">Submit</button>
     <button formaction="/tags" formmethod="get">Cancel</button>
 
 </form>
-<h2>Tags that Already Exist</h2>
+<h2>Tags</h2>
 {% for tag in tags %}
 <label class="container" style="display: block;">
     <input type="checkbox" name="{{tag.name}}">  {{tag.name}}
