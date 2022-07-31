@@ -94,7 +94,7 @@ def delete_user(user_id):
 @app.route('/posts/<int:post_id>')
 def show_post(post_id):
     """Show a post and Show buttons to edit and delete the post."""
-    # post =Post.query.get(post_id) - need to show tags for the chosen post
+    
     tags = []
     post =Post.query.get(post_id)
     post_tags = PostTag.query.filter_by(post_id= post_id).all()
@@ -129,7 +129,6 @@ def handle_add_form(user_id):
         tag = Tag.query.filter_by(name = tag).first()
         post_tag = PostTag(post_id = id, tag_id=tag.id)
         db.session.add(post_tag)
-        print(f"********post_id :{post_tag.post_id}, tag_id: {post_tag.tag_id}************")
         db.session.commit()
     return redirect(f"/{user_id}")
 
@@ -137,21 +136,35 @@ def handle_add_form(user_id):
 @app.route('/posts/<post_id>/edit')
 def show_edit_form(post_id):
     """Show form to edit a post, and to cancel (back to user page)."""
+    tags = Tag.query.all()
     post =Post.query.get(post_id)
-    return render_template("edit_post.html", post=post)
+    return render_template("edit_post.html", post=post, tags=tags)
 
 
 @app.route('/posts/<post_id>/edit', methods=["POST"])
 def edit_post(post_id):
     """Handle editing of a post. Redirect back to the post view."""
+    tags = Tag.query.all()
+
     post = Post.query.get_or_404(post_id)
+    
     title = request.form['title']
     content = request.form['content'] 
+    tags = request.form.getlist('checkbox')
+
     if is_empty([title, content]):
         return redirect(f"/posts/{post_id}/edit>")
+
     post.title = title
     post.content = content
     db.session.commit()
+    for tag in tags:
+        tag = Tag.query.filter_by(name = tag).first()
+        post_tag = PostTag(post_id = id, tag_id=tag.id)
+        db.session.add(post_tag)
+        db.session.commit()
+        
+
     return redirect(f"/posts/{post_id}")
 
 

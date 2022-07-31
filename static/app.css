@@ -4,9 +4,9 @@ input:hover {
     background-color: yellow;
   }
 
-  .submissionfield { 
-    width: 90px; 
-    height: 390px; 
+  .input[text] { 
+    width: 50%; 
+    height: 100px; 
     border: 1px solid #999999; 
     padding: 5px
   }

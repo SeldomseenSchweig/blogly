@@ -8,7 +8,7 @@
 
 <ul>
     {% for post in tagged_posts %}
-        <a href="/{{post.id}}"> <li>{{post.title}}</li></a>
+        <a href="/posts/{{post.id}}"> <li>{{post.title}}</li></a>
     {% endfor %}
 </ul>
 <a href="/tags"><button> Cancel</button></a>

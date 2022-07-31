@@ -18,5 +18,11 @@
     <br>
     <button>Submit The Edit</button>
 </form>
+<h2>Tags</h2>
+{% for tag in tags %}
+<label class="container" style="display: block;">
+    <input type="checkbox" name="checkbox" value="{{tag.name}}">  {{tag.name}}
+  </label>
+  {% endfor %}
 
 {% endblock %}

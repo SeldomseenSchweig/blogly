@@ -1,5 +1,6 @@
 """Models for Blogly."""
 from datetime import datetime
+from tkinter import CASCADE
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -35,14 +36,14 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_time = db.Column(db.DateTime(), nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, 
-                db.ForeignKey('users.id'))
-    tags = db.relationship('Tag', backref = 'posts', secondary='post_tags')
+                db.ForeignKey('users.id',ondelete='cascade'))
+    tags = db.relationship('Tag', backref = 'posts', secondary='post_tags', cascade='all, delete-orphan', single_parent=True)
 
 class Tag(db.Model):
   __tablename__='tags' 
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   name = db.Column(db.Text, unique=True)
-  post_tag = db.relationship('PostTag', backref = 'post_tags', single_parent=True)
+  post_tag = db.relationship('PostTag', backref = 'tags', cascade='all', passive_deletes=True, single_parent=True)
   
   
 class PostTag(db.Model):
